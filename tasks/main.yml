@@ -1,0 +1,49 @@
+---
+- name: Install .emacs
+  get_url:
+    url=https://raw.githubusercontent.com/clwells/bootstrap/master/dot-emacs
+    dest={{ hindsight.unix.home }}/.emacs
+    owner={{ hindsight.unix.user }}
+    group={{ hindsight.unix.group }}
+    mode=0644
+    force=yes
+
+- name: Make Sure .emacs.d Exists
+  file: name="{{ hindsight.unix.home }}/.emacs.d"
+        owner={{ hindsight.unix.user }}
+        group={{ hindsight.unix.group }}
+        mode=0711
+        state=directory
+
+- name: Install PHP mode
+  get_url:
+    url=https://raw.githubusercontent.com/clwells/bootstrap/master/php-mode.el
+    dest={{ hindsight.unix.home }}/.emacs.d/php-mode.el
+    owner={{ hindsight.unix.user }}
+    group={{ hindsight.unix.group }}
+    mode=0644
+    force=yes
+
+- name: Install .bash_profile
+  get_url:
+    url=https://raw.githubusercontent.com/clwells/bootstrap/master/dot-bash_profile
+    dest={{ hindsight.unix.home }}/.bash_profile
+    owner={{ hindsight.unix.user }}
+    group={{ hindsight.unix.group }}
+    mode=0644
+    force=yes
+
+- name: Kill Emacs Backups as Root
+  lineinfile:
+    dest=/root/.emacs
+    line="(setq make-backup-files nil)"
+
+- name: Setup GH Commit Name
+  shell: git config --global user.name "Chris Wells"
+  become: yes
+  become_user: "{{ hindsight.unix.user }}"
+
+- name: Setup GH Commit Email
+  shell: git config --global user.email "chris@nexcess.net"
+  become: yes
+  become_user: "{{ hindsight.unix.user }}"
