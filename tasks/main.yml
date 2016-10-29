@@ -1,4 +1,9 @@
 ---
+- name: Make Sure We Have Emacs
+  yum:
+    name=emacs-nox
+    state=latest
+
 - name: Install .emacs
   get_url:
     url=https://raw.githubusercontent.com/clwells/bootstrap/master/dot-emacs
@@ -31,7 +36,11 @@
     owner={{ unix_user }}
     group={{ unix_group }}
     mode=0644
-    force=yes
+
+- name: At Least Make Sure EDITOR=emacs
+  lineinfile:
+    dest="{{ unix_home }}/.bash_profile"
+    line="export EDITOR=emacs"
 
 - name: Kill Emacs Backups as Root
   lineinfile:
