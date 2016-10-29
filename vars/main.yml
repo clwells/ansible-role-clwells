@@ -1,5 +1,4 @@
 ---
-unix:
-  user: clwells
-  group: clwells
-  home: /home/clwells
+unix_user: clwells
+unix_group: clwells
+unix_home: /home/clwells

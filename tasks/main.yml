@@ -2,34 +2,34 @@
 - name: Install .emacs
   get_url:
     url=https://raw.githubusercontent.com/clwells/bootstrap/master/dot-emacs
-    dest={{ unix.home }}/.emacs
-    owner={{ unix.user }}
-    group={{ unix.group }}
+    dest={{ unix_home }}/.emacs
+    owner={{ unix_user }}
+    group={{ unix_group }}
     mode=0644
     force=yes
 
 - name: Make Sure .emacs.d Exists
-  file: name="{{ unix.home }}/.emacs.d"
-        owner={{ unix.user }}
-        group={{ unix.group }}
+  file: name="{{ unix_home }}/.emacs.d"
+        owner={{ unix_user }}
+        group={{ unix_group }}
         mode=0711
         state=directory
 
 - name: Install PHP mode
   get_url:
     url=https://raw.githubusercontent.com/clwells/bootstrap/master/php-mode.el
-    dest={{ unix.home }}/.emacs.d/php-mode.el
-    owner={{ unix.user }}
-    group={{ unix.group }}
+    dest={{ unix_home }}/.emacs.d/php-mode.el
+    owner={{ unix_user }}
+    group={{ unix_group }}
     mode=0644
     force=yes
 
 - name: Install .bash_profile
   get_url:
     url=https://raw.githubusercontent.com/clwells/bootstrap/master/dot-bash_profile
-    dest={{ unix.home }}/.bash_profile
-    owner={{ unix.user }}
-    group={{ unix.group }}
+    dest={{ unix_home }}/.bash_profile
+    owner={{ unix_user }}
+    group={{ unix_group }}
     mode=0644
     force=yes
 
@@ -37,13 +37,14 @@
   lineinfile:
     dest=/root/.emacs
     line="(setq make-backup-files nil)"
+  ignore_errors: yes
 
 - name: Setup GH Commit Name
   shell: git config --global user.name "Chris Wells"
   become: yes
-  become_user: "{{ unix.user }}"
+  become_user: "{{ unix_user }}"
 
 - name: Setup GH Commit Email
   shell: git config --global user.email "chris@nexcess.net"
   become: yes
-  become_user: "{{ unix.user }}"
+  become_user: "{{ unix_user }}"
