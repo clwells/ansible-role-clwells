@@ -1,8 +1,25 @@
 ---
-- name: Make Sure We Have Emacs
-  yum:
-    name=emacs-nox
+
+- name: Make Sure We Have Some Basics
+  package:
+    name={{ item }}
     state=latest
+  with_items:
+    - git
+    - emacs-nox
+
+- name: Make User If Needed
+  useradd:
+    name={{ unix_name }}
+    group={{ unix_group }}
+    groups=wheel
+    state=present
+  when: unix_user == "clwells"
+
+- name: Let Wheel Be Root
+  lineinfile:
+    "dest=/etc/sudoers state=present regexp='^%wheel' line='%wheel ALL=(ALL) NOPASSWD: ALL'"
+  when: unix_user == "clwells"
 
 - name: Install .emacs
   get_url:
