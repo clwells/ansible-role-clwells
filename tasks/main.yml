@@ -37,6 +37,11 @@
     group={{ unix_group }}
     mode=0644
 
+- name: Setup My Key
+  authorized_key:
+    user={{ unix_user }}
+    key=https://raw.githubusercontent.com/clwells/key/master/id_rsa.pub
+
 - name: At Least Make Sure EDITOR=emacs
   lineinfile:
     dest="{{ unix_home }}/.bash_profile"
