@@ -14,12 +14,10 @@
     group={{ unix_group }}
     groups=wheel
     state=present
-  when: unix_user == "clwells"
 
 - name: Let Wheel Be Root
   lineinfile:
     "dest=/etc/sudoers state=present regexp='^%wheel' line='%wheel ALL=(ALL) NOPASSWD: ALL'"
-  when: unix_user == "clwells"
 
 - name: Install .emacs
   get_url:
