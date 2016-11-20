@@ -9,7 +9,7 @@
     - emacs-nox
 
 - name: Make User If Needed
-  useradd:
+  user:
     name={{ unix_name }}
     group={{ unix_group }}
     groups=wheel
