@@ -4,7 +4,7 @@
   package:
     name: "{{ item }}"
     state: "latest"
-  with_items: "{{ clwells_packages }}"
+  with_items: clwells_packages
 
 - name: Make User If Needed
   user:
