@@ -6,11 +6,19 @@
     state: "latest"
   with_items: "{{ clwells_packages }}"
 
-- name: Make User If Needed
+- name: Add Group
+  group:
+    name="{{ clwells_unix_group }}"
+    state="present"
+
+- name: Add User
   user:
-    name: "{{ clwells_user }}"
-    group: "{{ clwells_group }}"
+    name=: "{{ clwells_unix_user }}"
+    group: "{{ clwells_unix_group }}"
     groups: "wheel"
+    home: "{{ clwells_unix_home }}"
+    move_home: "yes"
+    shell: "{{ clwells_unix_shell }}"
     state: "present"
 
 - name: Let Wheel Be Root
@@ -20,45 +28,45 @@
 - name: Install .emacs
   get_url:
     url: "https://raw.githubusercontent.com/clwells/bootstrap/master/dot-emacs"
-    dest: "{{ clwells_home }}/.emacs"
-    owner: "{{ clwells_user }}"
-    group: "{{ clwells_group }}"
+    dest: "{{ clwells_unix_home }}/.emacs"
+    owner: "{{ clwells_unix_user }}"
+    group: "{{ clwells_unix_group }}"
     mode: 0644
     force: true
 
 - name: Make Sure .emacs.d Exists
   file:
-    name: "{{ clwells_home }}/.emacs.d"
-    owner: "{{ clwells_user }}"
-    group: "{{ clwells_group }}"
+    name: "{{ clwells_unix_home }}/.emacs.d"
+    owner: "{{ clwells_unix_user }}"
+    group: "{{ clwells_unix_group }}"
     mode: 0711
     state: "directory"
 
 - name: Install PHP mode
   get_url:
     url: "https://raw.githubusercontent.com/clwells/bootstrap/master/php-mode.el"
-    dest: "{{ clwells_home }}/.emacs.d/php-mode.el"
-    owner: "{{ clwells_user }}"
-    group: "{{ clwells_group }}"
+    dest: "{{ clwells_unix_home }}/.emacs.d/php-mode.el"
+    owner: "{{ clwells_unix_user }}"
+    group: "{{ clwells_unix_group }}"
     mode: 0644
     force: true
 
 - name: Install .bash_profile
   get_url:
     url: "https://raw.githubusercontent.com/clwells/bootstrap/master/dot-bash_profile"
-    dest: "{{ clwells_home }}/.bash_profile"
-    owner: "{{ clwells_user }}"
-    group: "{{ clwells_group }}"
+    dest: "{{ clwells_unix_home }}/.bash_profile"
+    owner: "{{ clwells_unix_user }}"
+    group: "{{ clwells_unix_group }}"
     mode: 0644
 
 - name: Setup My Key
   authorized_key:
-    user: "{{ clwells_user }}"
+    user: "{{ clwells_unix_user }}"
     key: "https://raw.githubusercontent.com/clwells/key/master/id_rsa.pub"
 
 - name: At Least Make Sure EDITOR=emacs
   lineinfile:
-    dest: "{{ clwells_home }}/.bash_profile"
+    dest: "{{ clwells_unix_home }}/.bash_profile"
     line: "export EDITOR=emacs"
 
 - name: Kill Emacs Backups as Root
@@ -70,9 +78,9 @@
 - name: Setup GH Commit Name
   shell: git config --global user.name "Chris Wells"
   become: yes
-  become_user: "{{ clwells_user }}"
+  become_user: "{{ clwells_unix_user }}"
 
 - name: Setup GH Commit Email
   shell: git config --global user.email "chris@nexcess.net"
   become: yes
-  become_user: "{{ clwells_user }}"
+  become_user: "{{ clwells_unix_user }}"

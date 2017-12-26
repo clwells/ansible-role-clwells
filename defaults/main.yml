@@ -1,8 +1,9 @@
 ---
 
-clwells_user: "clwells"
-clwells_group: "clwells"
-clwells_home: "/home/clwells"
+clwells_unix_user: "clwells"
+clwells_unix_group: "clwells"
+clwells_unix_home: "/home/clwells"
+clwells_unix_shell: "/bin/bash"
 
 clwells_packages:
   - "git"
