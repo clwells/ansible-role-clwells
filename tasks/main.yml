@@ -59,7 +59,7 @@
 - name: At Least Make Sure EDITOR=emacs
   lineinfile:
     dest: "{{ clwells_home }}/.bash_profile"
-    line "export EDITOR=emacs"
+    line: "export EDITOR=emacs"
 
 - name: Kill Emacs Backups as Root
   lineinfile:
