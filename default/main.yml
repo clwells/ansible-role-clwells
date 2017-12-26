@@ -1,0 +1,10 @@
+---
+
+clwells_user: "clwells"
+clwells_group: "clwells"
+clwells_home: "/home/clwells"
+
+clwells_packages:
+  - "git"
+  - "strace"
+  - "emacs-nox"
