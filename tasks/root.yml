@@ -10,7 +10,7 @@
 
 - name: At Least Make Sure EDITOR=emacs
   lineinfile:
-    dest: "/root/.bash_profile"
+    dest: "/root/.bashrc"
     line: "export EDITOR=emacs"
 
 - name: Kill Emacs Backups
