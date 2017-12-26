@@ -13,7 +13,7 @@
 
 - name: Add User
   user:
-    name=: "{{ clwells_unix_user }}"
+    name: "{{ clwells_unix_user }}"
     group: "{{ clwells_unix_group }}"
     groups: "wheel"
     home: "{{ clwells_unix_home }}"
