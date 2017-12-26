@@ -6,10 +6,15 @@
     state: "latest"
   with_items: "{{ clwells_packages }}"
 
+- name: Add Wheel Group
+  group:
+    name: "wheel"
+    state: "present"
+
 - name: Add Group
   group:
-    name="{{ clwells_unix_group }}"
-    state="present"
+    name: "{{ clwells_unix_group }}"
+    state: "present"
 
 - name: Add User
   user:
