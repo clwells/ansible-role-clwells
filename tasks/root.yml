@@ -1,0 +1,20 @@
+
+- name: Install .emacs
+  get_url:
+    url: "https://raw.githubusercontent.com/clwells/bootstrap/master/dot-emacs"
+    dest: "/root/.emacs"
+    owner: "root"
+    group: "root"
+    mode: 0644
+    force: true
+
+- name: At Least Make Sure EDITOR=emacs
+  lineinfile:
+    dest: "/root/.bash_profile"
+    line: "export EDITOR=emacs"
+
+- name: Kill Emacs Backups
+  lineinfile:
+    dest: "/root/.emacs"
+    line: "(setq make-backup-files nil)"
+  ignore_errors: true

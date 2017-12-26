@@ -74,12 +74,6 @@
     dest: "{{ clwells_unix_home }}/.bash_profile"
     line: "export EDITOR=emacs"
 
-- name: Kill Emacs Backups as Root
-  lineinfile:
-    dest: "/root/.emacs"
-    line: "(setq make-backup-files nil)"
-  ignore_errors: true
-
 - name: Setup GH Commit Name
   shell: git config --global user.name "Chris Wells"
   become: yes
@@ -89,3 +83,5 @@
   shell: git config --global user.email "chris@nexcess.net"
   become: yes
   become_user: "{{ clwells_unix_user }}"
+
+- include: root.yml
