@@ -9,3 +9,6 @@ clwells_packages:
   - "git"
   - "strace"
   - "emacs-nox"
+  - "wget"
+  - "lynx"
+  - "links"
