@@ -12,3 +12,6 @@ clwells_packages:
   - "wget"
   - "lynx"
   - "links"
+  - "tee"
+  - "tmux"
+  - "screen"
